@@ -12,7 +12,7 @@ export default function BlackjackGame() {
           <div className="bg-white text-black p-4 rounded-lg shadow">6♠</div>
           <div className="bg-white text-black p-4 rounded-lg shadow">J♥</div>
         </div>
-        <p className="text-xl font-bold">Total: 20</p>
+        <p className="text-xl font-bold">Total: 16</p>
       </div>
 
       {/* Player Section */}
