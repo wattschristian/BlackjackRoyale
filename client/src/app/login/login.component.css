@@ -1,0 +1,69 @@
+.login-card {
+    max-width: 320px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tab {
+    background: transparent;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+  }
+  .tab.active {
+    color: #1e7e34;
+  }
+  .input-field {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    background: #f1f1f1;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  .password-wrapper {
+    position: relative;
+  }
+  .eye-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: #1e7e34;
+    color: #fff;
+  }
+  .helper-text {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .signup-link {
+    color: #1e7e34;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
