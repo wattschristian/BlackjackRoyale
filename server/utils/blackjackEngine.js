@@ -43,7 +43,9 @@ class Deck {
     deck.shuffle();
     const playerHand = deck.draw(2);
     const dealerHand = deck.draw(2);
-    return { deck, playerHand, dealerHand };
+    const playerValue = calculateHandValue(playerHand);
+
+    return { deck, playerHand, dealerHand, playerValue};
   }
   
   function playerHit(deck, hand) {
