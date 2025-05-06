@@ -1,29 +1,44 @@
 <div class="card game-card">
-    <h2 class="title">BLACKJACK</h2>
-    <div class="hand dealer-hand">
-      <span class="label">DEALER</span>
-      <div class="cards">
-        <div class="card-face">6♣</div>
-        <div class="card-face">J♣</div>
+  <h2 class="title">BLACKJACK</h2>
+
+  <div class="hand dealer-hand" *ngIf="dealerHand">
+    <span class="label">DEALER</span>
+    <div class="cards">
+      <div class="card-face" *ngFor="let card of dealerHand">
+        {{ card.rank + card.suit }}
       </div>
-      <div class="score-circle">20</div>
     </div>
-    <div class="hand player-hand">
-      <span class="label">YOU</span>
-      <div class="cards">
-        <div class="card-face">6♥</div>
-        <div class="card-face">A♣</div>
-      </div>
-      <div class="score-circle">21</div>
-    </div>
-    <div class="chips">
-      <span class="chip">1</span>
-      <span class="chip">1</span>
-      <span class="chip">5</span>
-      <span class="chip">10</span>
-    </div>
-    <div class="actions">
-      <button class="btn btn-hit">HIT</button>
-      <button class="btn btn-stand">STAND</button>
-    </div>
+    <div class="score-circle">{{ dealerValue || '0' }}</div>
   </div>
+
+  <div class="hand player-hand" *ngIf="playerHand">
+    <span class="label">YOU</span>
+    <div class="cards">
+      <div class="card-face" *ngFor="let card of playerHand">
+        {{ card.rank + card.suit }}
+      </div>
+    </div>
+    <div class="score-circle">{{ playerValue || '0' }}</div>
+  </div>
+
+  <div class="chips">
+    <span class="chip">1</span>
+    <span class="chip">1</span>
+    <span class="chip">5</span>
+    <span class="chip">10</span>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-start" (click)="startGame()">NEW GAME</button>
+    <button class="btn btn-hit"
+            (click)="hit()"
+            [disabled]="!gameStarted">HIT</button>
+    <button class="btn btn-stand"
+            (click)="stand()"
+            [disabled]="!gameStarted">STAND</button>
+  </div>
+
+  <div class="outcome" *ngIf="outcome">
+    <p>{{ outcome }}</p>
+  </div>
+</div>
