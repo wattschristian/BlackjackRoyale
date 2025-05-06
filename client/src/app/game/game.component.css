@@ -102,4 +102,9 @@
     color: #fff;
   }
 
-  
+
+  button:disabled {
+    background-color: gray; /* Or any color you prefer */
+    color: darkgray;
+    cursor: not-allowed; /* Optional: Change the cursor to indicate it's disabled */
+  }

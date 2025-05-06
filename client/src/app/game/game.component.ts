@@ -16,26 +16,36 @@ export class GameComponent {
   playerValue: number = 0;
   outcome: string = ' ';
   gameStarted = false;
+  playerBet: number = 0; // Bet amount
+  chipsAvailable: number = 100; // Total chips available
+  buttonsAvailable = false;
+
 
   constructor(private gameService: GameService) {}
 
   startGame() {
-    this.gameService.startGame().subscribe({
-      next: (data: any) => {
-        this.playerHand = data.playerHand;
-        this.dealerHand = data.dealerHand;
-        this.dealerValue = 0;
-        this.playerValue = this.calculateHandValue(this.playerHand);
-        this.outcome = '';
-        this.gameStarted = true;
-      },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        // Optional: Handle completion
-      }
-    });
+    if (this.playerBet > 0 && this.playerBet <= this.chipsAvailable) {
+      this.gameService.startGame().subscribe({
+        next: (data: any) => {
+          this.playerHand = data.playerHand;
+          this.dealerHand = data.dealerHand;
+          this.dealerValue = 0;
+          this.outcome = '';
+          this.gameStarted = true;
+          this.chipsAvailable -= this.playerBet; // Deduct bet from available chips
+          this.buttonsAvailable = true;
+          this.playerValue = data.playerValue;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          // Optional: Handle completion
+        }
+      });
+    } else {
+      alert('Please place a valid bet within your available chips.');
+    }
   }
 
   stand() {
@@ -47,6 +57,8 @@ export class GameComponent {
         this.dealerValue = data.dealerValue;
         this.outcome = data.outcome;
         this.gameStarted = false;
+        this.buttonsAvailable = false;
+        this.chipsAvailable += this.playerBet * 2
       },
       error: (error) => {
         console.error(error);
@@ -62,14 +74,27 @@ export class GameComponent {
       next: (data: any) => {
         this.playerHand = data.playerHand;
         this.playerValue = data.playerValue;
-        // Optionally check bust condition here
+        // Check bust condition here
         if (this.playerValue > 21) {
-          this.outcome = 'You bust! Dealer wins.';
-          this.gameStarted = false;
-        }
-        else if (this.playerValue == 21) {
+          this.gameService.stand().subscribe({ // Call stand logic if player busts
+            next: (data: any) => {
+              this.playerHand = data.playerHand;
+              this.dealerHand = data.dealerHand;
+              this.playerValue = data.playerValue;
+              this.dealerValue = data.dealerValue;
+              this.outcome = 'You bust! Dealer wins.'; // Set outcome here
+              this.gameStarted = false;
+              this.buttonsAvailable = false;
+            },
+            error: (error) => {
+              console.error(error);
+            }
+          });
+        } else if (this.playerValue == 21) {
           this.outcome = 'Blackjack! You win.';
           this.gameStarted = false;
+          this.buttonsAvailable = false;
+          this.chipsAvailable += this.playerBet * (3/2)
         }
       },
       error: (error) => {
@@ -84,16 +109,22 @@ export class GameComponent {
 
 
 
-  // Optional local hand value calculator (if needed)
-  calculateHandValue(hand: any[]): number {
-    // Implement client-side calculation or simply rely on the backend values.
-    return hand.reduce((sum, card) => {
-      let value = parseInt(card.rank);
-      if (isNaN(value)) {
-        // For face cards or Aces, you might adjust the logic or rely on backend values.
-        value = card.rank === 'A' ? 11 : 10;
-      }
-      return sum + value;
-    }, 0);
+  placeBet(amount: number) {
+    if (this.gameStarted) {
+      alert("Cannot change bet during the game!");
+      return;
+    }
+    if (amount <= this.chipsAvailable) {
+      this.playerBet += amount;
+    } else {
+      alert("You don't have enough chips to place this bet!");
+    }
+  }
+  clearBet() {
+    if (this.gameStarted) {
+      alert("Cannot change bet during the game!");
+      return;
+    }
+      this.playerBet = 0;
   }
 }

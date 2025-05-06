@@ -4,8 +4,13 @@
   <div class="hand dealer-hand" *ngIf="dealerHand">
     <span class="label">DEALER</span>
     <div class="cards">
-      <div class="card-face" *ngFor="let card of dealerHand">
-        {{ card.rank + card.suit }}
+      <div class="card-face" *ngFor="let card of dealerHand; let i = index">
+        <ng-container *ngIf="i === 0 || dealerHand.length > 2 || !gameStarted">
+          {{ card.rank + card.suit }}
+        </ng-container>
+        <ng-container *ngIf="i !== 0 && dealerHand.length <= 2 && gameStarted">
+          ?
+        </ng-container>
       </div>
     </div>
     <div class="score-circle">{{ dealerValue || '0' }}</div>
@@ -22,20 +27,22 @@
   </div>
 
   <div class="chips">
-    <span class="chip">1</span>
-    <span class="chip">1</span>
-    <span class="chip">5</span>
-    <span class="chip">10</span>
+    <div>Available Chips: {{ chipsAvailable }}</div>
+    <div>Current Bet: {{ playerBet || '0' }}</div>
+    <button class="chip" (click)="placeBet(1)" [disabled]="gameStarted">1</button>
+    <button class="chip" (click)="placeBet(5)" [disabled]="gameStarted">5</button>
+    <button class="chip" (click)="placeBet(10)" [disabled]="gameStarted">10</button>
+    <button class="chip" (click)="clearBet()" [disabled]="gameStarted">Clear</button>
   </div>
 
   <div class="actions">
-    <button class="btn btn-start" (click)="startGame()">NEW GAME</button>
+    <button class="btn btn-start" (click)="startGame()" [disabled]="gameStarted || playerBet <= 0">NEW GAME</button>
     <button class="btn btn-hit"
             (click)="hit()"
-            [disabled]="!gameStarted">HIT</button>
+            [disabled]="!gameStarted || !buttonsAvailable">HIT</button>
     <button class="btn btn-stand"
             (click)="stand()"
-            [disabled]="!gameStarted">STAND</button>
+            [disabled]="!gameStarted || !buttonsAvailable">STAND</button>
   </div>
 
   <div class="outcome" *ngIf="outcome">
