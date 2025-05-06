@@ -58,7 +58,13 @@ export class GameComponent {
         this.outcome = data.outcome;
         this.gameStarted = false;
         this.buttonsAvailable = false;
-        this.chipsAvailable += this.playerBet * 2
+        if (this.playerValue == this.dealerValue) {
+          this.chipsAvailable += this.playerBet
+          this.outcome = `You tie! You get ${this.playerBet}`; // Set outcome here              this.gameStarted = false;
+        }else if (this.playerValue > this.dealerValue) {
+          this.chipsAvailable += this.playerBet * 2
+        }
+
       },
       error: (error) => {
         console.error(error);
@@ -66,6 +72,7 @@ export class GameComponent {
       complete: () => {
         // Optional: Handle completion
       }
+
     });
   }
 
@@ -82,7 +89,7 @@ export class GameComponent {
               this.dealerHand = data.dealerHand;
               this.playerValue = data.playerValue;
               this.dealerValue = data.dealerValue;
-              this.outcome = 'You bust! Dealer wins.'; // Set outcome here
+              this.outcome = `You bust! Dealer wins. You lose: ${this.playerBet}`; // Set outcome here              this.gameStarted = false;
               this.gameStarted = false;
               this.buttonsAvailable = false;
             },
@@ -91,10 +98,10 @@ export class GameComponent {
             }
           });
         } else if (this.playerValue == 21) {
-          this.outcome = 'Blackjack! You win.';
+          this.outcome = `Blackjack! You win ${this.playerBet*(3/2)}`;
           this.gameStarted = false;
           this.buttonsAvailable = false;
-          this.chipsAvailable += this.playerBet * (3/2)
+          this.chipsAvailable += this.playerBet + this.playerBet * (3/2)
         }
       },
       error: (error) => {
