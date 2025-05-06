@@ -1,8 +1,8 @@
-// src/app/login/login.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +13,18 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   form: FormGroup;
+  loginResult$: Observable<any> | null = null;
+
   constructor(fb: FormBuilder, private auth: AuthService) {
     this.form = fb.group({
-      email: [''], password: ['']
+      username: [''],
+      password: ['']
     });
   }
 
-  // onSubmit() {
-  //   if (this.form.valid) {
-  //     this.auth.login(this.form.value)
-  //       .subscribe(() => /* navigate to /game */);
-  //   }
-  // }
+  onSubmit() {
+    if (this.form.valid) {
+      this.loginResult$ = this.auth.login(this.form.value);
+    }
+  }
 }

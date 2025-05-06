@@ -13,7 +13,9 @@ app.use(express.json());  // For parsing JSON request bodies
 const gameController = require('./controllers/gameController');
 app.use('/', gameController);
 
+const authRoutes = require('./routes/authRoutes');
 
+app.use('/auth', authRoutes);
 mongoose.connect("mongodb+srv://cameronmeier:XljWY61FVTpW3kxX@cluster0.flhnso9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 .then(() => {
     console.log('Connected to database!')
