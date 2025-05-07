@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
     if (this.user && this.user.chips !== undefined) {
       this.chipsAvailable = this.user.chips;
     } else {
-      this.chipsAvailable = 0;
+      this.chipsAvailable = 1000;
       console.warn('No user data found. Chips set to 0.');
     }
   }
