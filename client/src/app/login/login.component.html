@@ -1,17 +1,20 @@
 <div class="card login-card">
-    <div class="tabs">
-      <button class="tab active">LOG IN</button>
-      <button class="tab">SIGN UP</button>
-    </div>
-    <form>
-      <input type="email" placeholder="Email Address" class="input-field" />
-      <div class="password-wrapper">
-        <input type="password" placeholder="Password" class="input-field" />
-        <span class="eye-icon">👁️</span>
-      </div>
-      <button type="submit" class="btn btn-primary">LOG IN</button>
-    </form>
-    <p class="helper-text">
-      Don't have an account? <a routerLink="/register" class="signup-link">Sign up</a>
-    </p>
+  <div class="tabs">
+    <button class="tab active">LOG IN</button>
+    <button class="tab">SIGN UP</button>
   </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="Username" class="input-field" formControlName="username" />
+    <div class="password-wrapper">
+      <input type="password" placeholder="Password" class="input-field" formControlName="password" />
+      <span class="eye-icon">👁️</span>
+    </div>
+    <button type="submit" class="btn btn-primary">LOG IN</button>
+  </form>
+  <div *ngIf="loginResult$ | async as result">
+    <p *ngIf="result.message !== 'Login successful'">Login failed: {{ result.message }}</p>
+  </div>
+  <p class="helper-text">
+    Don't have an account? <a routerLink="/register" class="signup-link">Sign up</a>
+  </p>
+</div>
