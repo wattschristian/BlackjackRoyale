@@ -12,21 +12,22 @@ Before you begin, ensure you have met the following requirements:
 
 Follow these steps to download, install, and run the application on your local machine.
 
-### 1. Clone the Repository
+## 1. Clone the Repository
 
-# Clone the repo
+
+### Clone the repo
 git clone https://github.com/your-username/BlackjackRoyale.git
 
-# Navigate into the client and server directories to install dependencies
+### Navigate into the client and server directories to install dependencies
 cd BlackjackRoyale/client 
 npm install
 
 cd ../server
 npm install
 
-# Run server 
+### Run server 
 node server.js
 
-# Navigate to client and start Angular frontend
+### Navigate to client and start Angular frontend
 cd ../client
 ng serve
