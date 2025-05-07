@@ -1,7 +1,7 @@
 .register-card {
     max-width: 320px;
     margin: 2rem auto;
-    padding: 1.5rem;
+    padding: 5rem;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -26,9 +26,16 @@
   .tab.active {
     color: #1e7e34;
   }
-  
-  .input-field {
+
+  .field-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
     width: 100%;
+  }
+  
+  .field-wrapper .input-field {
+    flex: 1;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: none;
@@ -37,16 +44,10 @@
     font-size: 1rem;
   }
   
-  .password-wrapper {
-    position: relative;
-  }
-  
-  .eye-icon {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+  .password-wrapper .eye-icon {
+    margin-left: 0.5rem;
     cursor: pointer;
+    user-select: none;
   }
   
   .btn {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';      // ← import this
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -9,7 +10,7 @@ import { tap, catchError } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -39,5 +40,11 @@ export class LoginComponent {
         })
       );
     }
+  }
+
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }
