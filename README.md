@@ -13,15 +13,18 @@ Follow these steps to download, install, and run the application on your local m
 
 
 ### 1. Clone the Repository
+```bash
 git clone https://github.com/your-username/BlackjackRoyale.git
-
+```
 
 ### Install Dependencies
+```bash
 cd client 
 npm install
 
 cd ../server
 npm install
+```
 
 ### Configuration
 #### Create a .env file in the server directory to store environment variables
