@@ -1,20 +1,41 @@
 <div class="card login-card">
   <div class="tabs">
-    <button class="tab active">LOG IN</button>
-    <button class="tab">SIGN UP</button>
+    <button class="tab" 
+    routerLink="/login" 
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+    LOG IN
+    </button>
+    <button
+      class="tab"
+      routerLink="/register"
+      routerLinkActive="active">
+      SIGN UP
+    </button>
   </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="Username" class="input-field" formControlName="username" />
-    <div class="password-wrapper">
-      <input type="password" placeholder="Password" class="input-field" formControlName="password" />
-      <span class="eye-icon">👁️</span>
+    <div class="field-wrapper">
+      <input
+        type="text"
+        placeholder="Username"
+        class="input-field"
+        formControlName="username"
+      />
     </div>
-    <button type="submit" class="btn btn-primary">LOG IN</button>
+    <div class="field-wrapper password-wrapper">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+        class="input-field"
+        formControlName="password"
+      />
+      <span class="eye-icon" (click)="togglePassword()">
+        {{ showPassword ? '🙈' : '👁️' }}
+      </span>
+    </div>
+    <button type="submit" class="btn btn-primary">SIGN UP</button>
   </form>
   <div *ngIf="loginResult$ | async as result">
     <p *ngIf="result.message !== 'Login successful'">Login failed: {{ result.message }}</p>
   </div>
-  <p class="helper-text">
-    Don't have an account? <a routerLink="/register" class="signup-link">Sign up</a>
-  </p>
 </div>

@@ -1,28 +1,65 @@
 <div class="card register-card">
     <div class="tabs">
-      <button class="tab">LOG IN</button>
-      <button class="tab active">SIGN UP</button>
+      <button class="tab" 
+    routerLink="/login" >
+    LOG IN
+    </button>
+    <button
+      class="tab"
+      routerLink="/register"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      SIGN UP
+    </button>
     </div>
   
     <form>
-      <input type="text" placeholder="Username" class="input-field" />
-      <input type="email" placeholder="Email Address" class="input-field" />
-  
-      <div class="password-wrapper">
-        <input type="password" placeholder="Password" class="input-field" />
-        <span class="eye-icon">👁️</span>
+      <div class="field-wrapper">
+        <input
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+          class="input-field"
+        />
       </div>
-      <div class="password-wrapper">
-        <input type="password" placeholder="Confirm Password" class="input-field" />
-        <span class="eye-icon">👁️</span>
+  
+      <!-- Email -->
+      <div class="field-wrapper">
+        <input
+          type="email"
+          placeholder="Email Address"
+          formControlName="email"
+          class="input-field"
+        />
+      </div>
+  
+      <!-- Password -->
+      <div class="field-wrapper password-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          formControlName="password"
+          class="input-field"
+        />
+        <span class="eye-icon" (click)="togglePassword()">
+          {{ showPassword ? '🙈' : '👁️' }}
+        </span>
+      </div>
+  
+      <!-- Confirm Password -->
+      <div class="field-wrapper password-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+          class="input-field"
+        />
+        <span class="eye-icon" (click)="togglePassword()">
+          {{ showPassword ? '🙈' : '👁️' }}
+        </span>
       </div>
   
       <button type="submit" class="btn btn-primary">SIGN UP</button>
     </form>
-  
-    <p class="helper-text">
-      Already have an account?
-      <a routerLink="/login" class="signup-link">Log in</a>
-    </p>
   </div>
   
