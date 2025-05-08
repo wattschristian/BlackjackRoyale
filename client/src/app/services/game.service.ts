@@ -24,8 +24,8 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  startGame(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/start`);
+  startGame(bet: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/start`, {bet});
   }
 
   hit(): Observable<any> {

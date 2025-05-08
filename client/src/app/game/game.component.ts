@@ -36,18 +36,32 @@ export class GameComponent implements OnInit {
   }
 
   startGame() {
+    if (this.playerBet <= 0 || this.playerBet > this.chipsAvailable) {
+      return alert('Please place a valid bet within your available chips.');
+    }
+
     if (this.playerBet > 0 && this.playerBet <= this.chipsAvailable) {
       this.chipsAvailable -= this.playerBet; // Subtract bet from chips
       this.updateChips(); // Sync with backend and localStorage
-      this.gameService.startGame().subscribe({
+      this.gameService.startGame(this.playerBet).subscribe({
         next: (data: any) => {
           this.playerHand = data.playerHand;
           this.dealerHand = data.dealerHand;
-          this.dealerValue = 0;
+          this.dealerValue = data.dealerValue ?? 0;
+          this.playerValue = data.playerValue;
+
+          // If server returned an outcome (i.e. blackjack), stop immediately:
+          if(data.outcome) {
+            this.outcome = data.outcome;
+            this.buttonsAvailable = false;
+            this.gameStarted = false;
+            this.chipsAvailable += data.chipDelta; // Adjust chips based on outcome
+            return this.updateChips(); // Sync with backend and localStorage
+          }
+          // otherwise, normal game flow
           this.outcome = '';
           this.gameStarted = true;
           this.buttonsAvailable = true;
-          this.playerValue = data.playerValue;
         },
         error: (error) => {
           console.error(error);
@@ -64,27 +78,30 @@ export class GameComponent implements OnInit {
   stand() {
     this.gameService.stand().subscribe({
       next: (data: any) => {
-        this.playerHand = data.playerHand;
-        this.dealerHand = data.dealerHand;
-        this.playerValue = data.playerValue;
-        this.dealerValue = data.dealerValue;
-        this.outcome = data.outcome;
-        this.gameStarted = false;
+        // 1) Update the UI with whatever the server sent
+        this.playerHand   = data.playerHand;
+        this.dealerHand   = data.dealerHand;
+        this.playerValue  = data.playerValue;
+        this.dealerValue  = data.dealerValue;
+        this.outcome      = data.outcome;
+  
+        // 2) Turn the UI state off
+        this.gameStarted      = false;
         this.buttonsAvailable = false;
-        if (this.playerValue === this.dealerValue) {
-          this.chipsAvailable += this.playerBet; // Return bet on tie
-          this.outcome = `You tie! You get ${this.playerBet}`;
-        } else if (this.playerValue > this.dealerValue && this.playerValue <= 21) {
-          this.chipsAvailable += this.playerBet * 2; // Win: return bet + winnings
-          this.outcome = `You win! You get ${this.playerBet * 2}`;
-        } else {
-          this.outcome = `Dealer wins! You lose: ${this.playerBet}`;
+  
+        // 3) (Optional) adjust chips based on outcome
+        if (data.outcome.includes("You win")) {
+          // win → return bet + winnings
+          this.chipsAvailable += data.chipDelta;
+        } else if (data.outcome.startsWith("Push")) {
+          // tie → return bet only
+          this.chipsAvailable += this.playerBet;
         }
-        this.updateChips(); // Sync with backend and localStorage
+        // else on a loss, we already subtracted the bet at startGame()
+  
+        this.updateChips();
       },
-      error: (error) => {
-        console.error(error);
-      }
+      error: (err) => console.error(err)
     });
   }
 
