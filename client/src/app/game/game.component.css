@@ -2,109 +2,172 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;                           /* push below fixed nav */
-  height: calc(100vh - 3rem);                 /* fill remainder */
+  margin-top: 3rem;
+  height: calc(100vh - 3rem);
   width: 100vw;
-  background: #0b3d1f;
-  margin-left: 0;
-  margin-right: 0;
+  background: linear-gradient(135deg, #0b3d1f, #06512a);
 }
 
 .game-card {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
+  max-width: 800px;
+  width: 90%;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
   padding: 2rem;
-  background: #0b3d1f;
-  box-shadow: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   color: #fff;
 }
-  .title {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-  }
-  .hand {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  .label {
-    flex: 0 0 60px;
-    font-size: 0.85rem;
-    opacity: 0.8;
-  }
-  .cards {
-    display: flex;
-    gap: 0.5rem;
-    flex: 1;
-  }
-  .card-face {
-    width: 50px;
-    height: 70px;
-    background: #fff;
-    color: #000;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  .score-circle {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    color: #0b3d1f;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-  .chips {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  .chip {
-    width:  thirty-five;
-    height: 35px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-  .actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-  .btn {
-    flex: 1;
-    padding: 0.75rem 0;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .btn-hit {
-    background: #28a745;
-    color: #fff;
-  }
-  .btn-stand {
-    background: #218838;
-    color: #fff;
-  }
 
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
 
-  button:disabled {
-    background-color: gray; /* Or any color you prefer */
-    color: darkgray;
-    cursor: not-allowed; /* Optional: Change the cursor to indicate it's disabled */
-  }
+.hand {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.label {
+  flex: 0 0 70px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.cards {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.card-face {
+  width: 60px;
+  height: 84px;
+  background: #fff;
+  color: #0b3d1f;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.card-face:hover {
+  transform: translateY(-4px);
+}
+
+.score-circle {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  color: #0b3d1f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-left: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.bet-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.bet-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.chips {
+  display: inline-flex;
+  gap: 0.75rem;
+}
+
+.chip {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: rgba(255,255,255,0.1);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.chip:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.2);
+}
+
+.chip.clear {
+  width: auto;
+  padding: 0 0.75rem;
+  border-radius: 6px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 0.75rem 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-start {
+  background: #28a745;
+  color: #fff;
+}
+
+.btn-hit {
+  background: #ffc107;
+  color: #0b3d1f;
+}
+
+.btn-stand {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: gray;
+  color: darkgray;
+  cursor: not-allowed;
+}
+
+.outcome p {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}

@@ -26,23 +26,29 @@
     <div class="score-circle">{{ playerValue || '0' }}</div>
   </div>
 
-  <div class="chips">
-    <div>Available Chips: {{ chipsAvailable }}</div>
-    <div>Current Bet: {{ playerBet || '0' }}</div>
-    <button class="chip" (click)="placeBet(1)" [disabled]="gameStarted">1</button>
-    <button class="chip" (click)="placeBet(5)" [disabled]="gameStarted">5</button>
-    <button class="chip" (click)="placeBet(10)" [disabled]="gameStarted">10</button>
-    <button class="chip" (click)="clearBet()" [disabled]="gameStarted">Clear</button>
+  <div class="bet-info">
+    <div class="bet-stats">
+      <span>Available: <strong>{{ chipsAvailable }}</strong></span>
+      <span>Bet: <strong>{{ playerBet || '0' }}</strong></span>
+    </div>
+    <div class="chips">
+      <button class="chip" (click)="placeBet(1)" [disabled]="gameStarted">1</button>
+      <button class="chip" (click)="placeBet(5)" [disabled]="gameStarted">5</button>
+      <button class="chip" (click)="placeBet(10)" [disabled]="gameStarted">10</button>
+      <button class="chip clear" (click)="clearBet()" [disabled]="gameStarted">Clear</button>
+    </div>
   </div>
 
   <div class="actions">
-    <button class="btn btn-start" (click)="startGame()" [disabled]="gameStarted || playerBet <= 0">NEW GAME</button>
-    <button class="btn btn-hit"
-            (click)="hit()"
-            [disabled]="!gameStarted || !buttonsAvailable">HIT</button>
-    <button class="btn btn-stand"
-            (click)="stand()"
-            [disabled]="!gameStarted || !buttonsAvailable">STAND</button>
+    <button class="btn btn-start" (click)="startGame()" [disabled]="gameStarted || playerBet <= 0">
+      NEW GAME
+    </button>
+    <button class="btn btn-hit" (click)="hit()" [disabled]="!gameStarted || !buttonsAvailable">
+      HIT
+    </button>
+    <button class="btn btn-stand" (click)="stand()" [disabled]="!gameStarted || !buttonsAvailable">
+      STAND
+    </button>
   </div>
 
   <div class="outcome" *ngIf="outcome">
