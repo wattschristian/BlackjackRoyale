@@ -17,8 +17,8 @@ router.post('/start', (req, res) => {
   const playerValue = blackjack.calculateHandValue(currentGame.playerHand);
   const dealerValue = blackjack.calculateHandValue(currentGame.dealerHand);
 
-  // check for player blackjack on first two cards
-  if (playerValue === 21) {
+  // check for player blackjack *only* on first two cards
+  if (currentGame.playerHand.length === 2 && playerValue === 21) {
     const outcome   = 'Blackjack! You win!';
     const chipDelta = bet * 2.5;                   // return bet + 1.5× winnings
 
