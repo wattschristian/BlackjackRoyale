@@ -9,13 +9,14 @@ import { tap, catchError } from 'rxjs/operators';
 export class AuthService {
   private user: any;
 
-  constructor(private http: HttpClient) {
-    // Load user data from local storage on service initialization
-    this.user = this.getUserFromLocalStorage();
-  }
+  constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
     return this.http.post('http://localhost:3000/auth/login', credentials);
+  }
+
+  register(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/auth/register', data);
   }
 
   setUser(user: any) {
