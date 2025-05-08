@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
 
 userSchema = mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
-    chips: { type: Number, default: 0 },
-    stats: {
-      gamesPlayed: { type: Number, default: 0 },
-      gamesWon: { type: Number, default: 0 },
-      highestWin: { type: Number, default: 0 },
-      totalChipsWon: { type: Number, default: 0 }
-    }
-  });
-  
-  module.exports = mongoose.model('User', userSchema);
+  username: { type: String, required: true, unique: true },
+  passwordHash: { type: String, required: true },
+  chips: { type: Number, default: 0 },
+  stats: {
+    gamesPlayed: { type: Number, default: 0 },
+    gamesWon: { type: Number, default: 0 },
+    highestWin: { type: Number, default: 0 },
+    totalChipsWon: { type: Number, default: 0 }
+  },
+  chipHistory: { type: [Number], default: [] } // Add this field
+});
+
+module.exports = mongoose.model('User', userSchema);
 
 
 /*  

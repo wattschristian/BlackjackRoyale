@@ -42,24 +42,24 @@ async function seedUserData() {
           _id: '661fa0d8c5c1c2b3a35e7a22',
           username: 'luckyLily',
           passwordHash: 'e99a18c428cb38d5f260853678922e03', // "abc123"
-          chips: 3200,
+          chips: 1000,
           stats: {
-            gamesPlayed: 98,
-            gamesWon: 50,
-            highestWin: 4100,
-            totalChipsWon: 17000
+            gamesPlayed: 0,
+            gamesWon: 0,
+            highestWin: 0,
+            totalChipsWon: 0
           }
         },
         {
           _id: '661fa0e9c5c1c2b3a35e7a23',
           username: 'bluffKing',
           passwordHash: 'd8578edf8458ce06fbc5bb76a58c5ca4', // "qwerty"
-          chips: 800,
+          chips: 1000,
           stats: {
-            gamesPlayed: 65,
-            gamesWon: 15,
-            highestWin: 3000,
-            totalChipsWon: 8800
+            gamesPlayed: 0,
+            gamesWon: 0,
+            highestWin: 0,
+            totalChipsWon: 0
           }
         }
       ]);
@@ -141,6 +141,43 @@ async function seedGameHistoryData() {
     }
   }
 
+// Stats endpoint
+app.get('/stats', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    console.log('Stats requested for user ID:', userId);
+    
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+    
+    const user = await UserModel.findById(userId);
+    console.log('User found:', user ? user.username : 'Not found');
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Calculate win rate
+    const winRate = user.stats.gamesPlayed > 0 
+      ? ((user.stats.gamesWon / user.stats.gamesPlayed) * 100).toFixed(2) 
+      : '0.00';
+    
+    const stats = {
+      gamesPlayed: user.stats.gamesPlayed,
+      gamesWon: user.stats.gamesWon,
+      winRate: winRate,
+      chips: user.chips,
+      chipHistory: user.chipHistory || []
+    };
+    
+    console.log('Sending stats:', stats);
+    res.json({ stats });
+  } catch (error) {
+    console.error('Error fetching stats:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
