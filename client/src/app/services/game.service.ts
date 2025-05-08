@@ -1,38 +1,29 @@
-// // game.service.ts
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import type { Observable } from 'rxjs';
-
-// @Injectable({ providedIn: 'root' })
-// export class GameService {
-//   private api = '/api/game';
-//   constructor(private http: HttpClient) {}
-//   deal(): Observable<any>         { return this.http.get(`${this.api}/deal`); }
-//   hit(): Observable<any>          { return this.http.post(`${this.api}/hit`, {}); }
-//   stand(): Observable<any>        { return this.http.post(`${this.api}/stand`, {}); }
-// }
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private baseUrl = 'http://localhost:3000'; // adjust the port if needed
+  private baseUrl = 'http://localhost:3000'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   startGame(bet: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/start`, {bet});
   }
 
   hit(): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/hit`, {});
+    const user = this.auth.getUser();
+    const userId = user ? user.id : null;
+    return this.http.post<any>(`${this.baseUrl}/hit`, { userId });
   }
 
   stand(): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/stand`, {});
+    const user = this.auth.getUser();
+    const userId = user ? user.id : null;
+    return this.http.post<any>(`${this.baseUrl}/stand`, { userId });
   }
 }

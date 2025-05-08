@@ -1,11 +1,19 @@
 // stats.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import type { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class StatsService {
-  private api = '/api/stats';
+  private baseUrl = 'http://localhost:3000'; 
+
   constructor(private http: HttpClient) {}
-  getStats(): Observable<any> { return this.http.get(this.api); }
+
+  getStats(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/stats?userId=${userId}`);
+  }
 }
+

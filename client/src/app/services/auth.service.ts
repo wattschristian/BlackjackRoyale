@@ -9,7 +9,10 @@ import { tap, catchError } from 'rxjs/operators';
 export class AuthService {
   private user: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Initialize user from localStorage when service is created
+    this.user = this.getUserFromLocalStorage();
+  }
 
   login(credentials: any): Observable<any> {
     return this.http.post('http://localhost:3000/auth/login', credentials);
@@ -26,7 +29,9 @@ export class AuthService {
   }
 
   getUser() {
-    // Return the in-memory user, which is initialized from local storage
+    if (!this.user) {
+      this.user = this.getUserFromLocalStorage();
+    }
     return this.user;
   }
 
@@ -39,12 +44,12 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 
-  // Optional: Method to clear user data on logout
   logout() {
     this.user = null;
     localStorage.removeItem('user');
   }
 
+  // Add this method to check if user is logged in
   isLoggedIn(): boolean {
     return !!this.getUser();
   }

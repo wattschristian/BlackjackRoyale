@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavComponent } from './dev-nav/dev-nav.component';
+import { NavigationComponent } from './nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true, 
-  imports: [RouterOutlet, NavComponent],
+  imports: [RouterOutlet, NavigationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'client';
+  title = 'BlackjackRoyale';
 }

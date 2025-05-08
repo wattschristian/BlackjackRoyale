@@ -110,26 +110,35 @@ export class GameComponent implements OnInit {
       next: (data: any) => {
         this.playerHand = data.playerHand;
         this.playerValue = data.playerValue;
+        
+        // Check if player busts (over 21)
         if (this.playerValue > 21) {
+          console.log("Player busted with:", this.playerValue);
+          // Handle bust scenario
+          this.outcome = `You bust! Dealer wins. You lose: ${this.playerBet}`;
+          this.gameStarted = false;
+          this.buttonsAvailable = false;
+          
+          // Update game state on backend
           this.gameService.stand().subscribe({
-            next: (data: any) => {
-              this.playerHand = data.playerHand;
-              this.dealerHand = data.dealerHand;
-              this.playerValue = data.playerValue;
-              this.dealerValue = data.dealerValue;
-              this.outcome = `You bust! Dealer wins. You lose: ${this.playerBet}`;
-              this.gameStarted = false;
-              this.buttonsAvailable = false;
+            next: (standData: any) => {
+              this.dealerHand = standData.dealerHand;
+              this.dealerValue = standData.dealerValue;
+              
+              // Update user stats
               this.updateChips();
             },
             error: (error) => {
-              console.error(error);
+              console.error("Error when standing after bust:", error);
             }
           });
+        } else if (this.playerValue === 21) {
+          // Handle blackjack scenario
+          this.outcome = `21! Stand to see if you win.`;
         }
       },
       error: (error) => {
-        console.error(error);
+        console.error("Error during hit:", error);
       }
     });
   }
