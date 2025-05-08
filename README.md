@@ -1,5 +1,5 @@
 # BlackjackRoyale
-Full-stack MERN application that allows users to play the popular card game Blackjack against a computer dealer.
+Full-stack MEAN application that allows users to play the popular card game Blackjack against a computer dealer.
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
