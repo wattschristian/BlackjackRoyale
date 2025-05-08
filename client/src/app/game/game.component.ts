@@ -31,7 +31,7 @@ export class GameComponent implements OnInit {
       this.chipsAvailable = this.user.chips;
     } else {
       this.chipsAvailable = 1000;
-      console.warn('No user data found. Chips set to 0.');
+      console.warn('No user data found. Chips set to 1000.');
     }
   }
 
@@ -126,12 +126,6 @@ export class GameComponent implements OnInit {
               console.error(error);
             }
           });
-        } else if (this.playerValue === 21) {
-          this.outcome = `Blackjack! You win ${this.playerBet * (3/2)}`;
-          this.gameStarted = false;
-          this.buttonsAvailable = false;
-          this.chipsAvailable += this.playerBet + this.playerBet * (3/2); // Return bet + 1.5x winnings
-          this.updateChips();
         }
       },
       error: (error) => {
