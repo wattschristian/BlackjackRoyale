@@ -4,5 +4,8 @@
       <li><a routerLink="/register" routerLinkActive="active">Register</a></li>
       <li><a routerLink="/game" routerLinkActive="active">Game</a></li>
       <li><a routerLink="/stats" routerLinkActive="active">Stats</a></li>
+      <li *ngIf="authService.isLoggedIn()">
+        <button (click)="logout()">Logout</button>
+      </li>
     </ul>
   </nav>
