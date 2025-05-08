@@ -33,7 +33,11 @@
         {{ showPassword ? '🙈' : '👁️' }}
       </span>
     </div>
+
+    <button type="submit" class="btn btn-primary">LOG IN</button>
+=======
     <button type="submit" class="btn btn-primary">LOGIN</button>
+
   </form>
   <div *ngIf="loginResult$ | async as result">
     <p *ngIf="result.message !== 'Login successful'">Login failed: {{ result.message }}</p>

@@ -32,9 +32,11 @@
       <span>Bet: <strong>{{ playerBet || '0' }}</strong></span>
     </div>
     <div class="chips">
-      <button class="chip" (click)="placeBet(1)" [disabled]="gameStarted">1</button>
       <button class="chip" (click)="placeBet(5)" [disabled]="gameStarted">5</button>
       <button class="chip" (click)="placeBet(10)" [disabled]="gameStarted">10</button>
+      <button class="chip" (click)="placeBet(50)" [disabled]="gameStarted">50</button>
+      <button class="chip" (click)="placeBet(100)" [disabled]="gameStarted">100</button>
+      <button class="chip" (click)="placeBet(500)" [disabled]="gameStarted">500</button>
       <button class="chip clear" (click)="clearBet()" [disabled]="gameStarted">Clear</button>
     </div>
   </div>
