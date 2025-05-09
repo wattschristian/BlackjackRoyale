@@ -1,6 +1,9 @@
 # BlackjackRoyale
 Full-stack MEAN application that allows users to play the popular card game Blackjack against a computer dealer.
 
+## Presentation
+https://docs.google.com/presentation/d/13wNQ3eu4e2KGYXjpD3TI3GHlsyIo5XdWHQHjfKOfs3w/edit?usp=sharing
+
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 
