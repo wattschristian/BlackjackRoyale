@@ -1,6 +1,12 @@
 # BlackjackRoyale
 Full-stack MEAN application that allows users to play the popular card game Blackjack against a computer dealer.
 
+## Team Roles
+Kyle: Frontend (Gameplay UI, card animations, state management)
+Cameron: Backend (Game logic, Express routes, validation)
+Parker: Database (MongoDB schema design, game session tracking, authentication persistence)
+Christian: UI polish, documentation, deployment (styling, testing, README, deployment to Render/Vercel)
+
 ## Presentation
 https://docs.google.com/presentation/d/13wNQ3eu4e2KGYXjpD3TI3GHlsyIo5XdWHQHjfKOfs3w/edit?usp=sharing
 
