@@ -21,6 +21,8 @@ git clone https://github.com/your-username/BlackjackRoyale.git
 ```bash
 cd client 
 npm install
+npm install chart.js@4.x
+npm install ng2-charts
 
 cd ../server
 npm install
